@@ -1,0 +1,15 @@
+{
+  "translation": {
+    "hello": "Hello1",
+    "emailid": "Email ID",
+    "password": "Password",
+    "login": "Log In",
+    "english": "English",
+    "arabic": "Arabic",
+    "updatelannguage": "Update Language",
+    "tooltipusernamemsg": "You must enter a valid email address",
+    "tooltippasswordmsg": "Password must contain the following:\n *Password size limitation between 8 - 15 characters.\n *Must contain at least one uppercase letter.\n *Must contain at least one special character (!”#$%&'()*+,-./:;<=>?@[^_{|}~ ).",
+    "dashboard": "Dashboard",
+    "logout":"Logout"
+  }
+}

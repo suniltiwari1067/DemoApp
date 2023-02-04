@@ -17,8 +17,6 @@ export const UserDetailSlice = createSlice({
       loginStatus = false;
     },
     loginSuccess: (state, action) => {
-console.log("action >>>",action)
-
       state.loading = false;
       state.username = action.payload.emailid;
       state.loginStatus = true
@@ -31,7 +29,6 @@ console.log("action >>>",action)
   },
 });
 
-// Action creators are generated for each case reducer function
 export const {
   loadSignIn,
   loginSuccess,

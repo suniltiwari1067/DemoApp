@@ -13,6 +13,7 @@ import DefaultNavigator from './src/navigations/defaultNavigator';
 import { extendTheme, NativeBaseProvider } from 'native-base';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import { LanguageModal } from './src/helpers/languageModal';
 
 FontAwesomeIcon.loadFont();
 MaterialIcon.loadFont();
@@ -37,6 +38,7 @@ function App(): JSX.Element {
       <NativeBaseProvider>
         <Provider store={store}>
           <DefaultNavigator />
+          <LanguageModal />
         </Provider>
       </NativeBaseProvider>
     </NavigationContainer>

@@ -8,7 +8,7 @@ export const validateEmailId = (input) => {
 }
 
 export const validatePassword = (input) => {
-    let pwdRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+    let pwdRegex = /^(?=.*[A-Z])(?=.*[!@#\$%\^&\*])(?=.{8,})/
     if (input !== "" && pwdRegex.test(input)) {
         return true;
     } else {

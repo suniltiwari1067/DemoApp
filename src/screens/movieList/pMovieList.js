@@ -3,14 +3,15 @@ import { View } from 'react-native';
 import { movieStyle } from './styles';
 import FastImages from '../../components/fastImage';
 import { Center, Text, VStack } from 'native-base';
+import { IMAGE_BASE_URL } from '../../helpers/Constants'
 
-const ItemList = ({ item }) => {
-    const { title, thumbnail } = item;
-    console.log("thumbnail >>>", thumbnail)
+const PMovieList = ({ item }) => {
+    const { title, poster_path, id } = item;
     return (
         <View
             activeOpacity={0.6}
             style={movieStyle.itemContainer}
+          //  key={id}
         >
             <VStack
                 w={'100%'}
@@ -22,11 +23,12 @@ const ItemList = ({ item }) => {
                 borderColor={'gray.300'}>
                 <Center>
                     <FastImages
-                        style={movieStyle.imageStyle}
-                        imageSource={{ uri: thumbnail }}
+                        style={movieStyle.movieImage}
+                        //imageSource={{ uri: IMAGE_BASE_URL + poster_path }}
+                        imageSource={require('../../assets/images/unnamed.jpg')}
                         resizeMode={'contain'}
                     />
-                    <Text numberOfLines={2} style={movieStyle.productName}>
+                    <Text numberOfLines={2} style={movieStyle.movieName}>
                         {title}
                     </Text>
                 </Center>
@@ -35,4 +37,4 @@ const ItemList = ({ item }) => {
     );
 };
 
-export default ItemList;
+export default PMovieList;
