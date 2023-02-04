@@ -62,7 +62,7 @@ const MovieList = () => {
             let currentLang = (currentLanguage == "arabic" ? 'ar' : 'en');
             let url = MOVIE_LIST_ENDPOINT + currentLang + "&page=" + offset;
             //https://api.themoviedb.org/3/movie/popular?api_key=243554b2e4d28a562d1a603d655270bd&language=en-US&page=1
-           
+
             // Sending the currect offset with get request
             fetch(url)
                 .then((response) => response.json())
@@ -77,6 +77,7 @@ const MovieList = () => {
                 })
                 .catch((error) => {
                     //store error log
+                    console.log(error)
                 })
                 .finally(() => {
                     setLoading(false);
@@ -121,7 +122,7 @@ const MovieList = () => {
         <SafeAreaView style={movieStyle.container}>
             <View style={movieStyle.subContainer}>
                 {
-                    PMovieDataList && PMovieDataList.length > 0 && !loading ?
+                    PMovieDataList && PMovieDataList.length > 0 ?
                         (
                             <FlatList
                                 style={movieStyle.flatlistContainer}
