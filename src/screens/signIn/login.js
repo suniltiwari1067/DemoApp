@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Text,
     TouchableOpacity,
-    Image,
+    StatusBar,
     Platform
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +17,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import Tooltip from '../../components/toolTip'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { LanguageModal } from '../../helpers/languageModal'
 import { openModal } from '../../redux/userLanguages';
 import '../../localization/i18n';
@@ -25,6 +25,8 @@ import { useTranslation } from 'react-i18next';
 import { signInStyle } from './styles';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import FastImages from '../../components/fastImage';
+import { CustomStatusBar } from '../../helpers/statusBar';
+
 
 const Login = (props) => {
     const [emailId, setEmailId] = useState("");
@@ -37,9 +39,12 @@ const Login = (props) => {
     const { t, i18n } = useTranslation();
 
     const onLogin = () => {
-        setLoading(true)
+        setLoading(true);
         dispatch(loginSuccess({ emailid: emailId }));
-        props.navigation.navigate('menuNavigators')
+        setTimeout(() => {
+            resetField();
+            props.navigation.navigate('menuNavigators')
+        }, 200)
     }
 
     const validation = () => {
@@ -55,8 +60,17 @@ const Login = (props) => {
         validation();
     }, [emailId, password])
 
+    const resetField = () => {
+        setEmailId("");
+        setPassword("");
+        setInputValidation(false);
+        setLoading(false);
+        setShow(false)
+    }
+
     return (
-        <SafeAreaView style={signInStyle.container}>
+        <SafeAreaProvider style={signInStyle.container}>
+            <CustomStatusBar backgroundColor="#4a92e1" />
             <KeyboardAwareScrollView
                 keyboardShouldPersistTaps={"handled"}
                 contentContainerStyle={signInStyle.container}
@@ -87,6 +101,7 @@ const Login = (props) => {
                             placeholder={t('emailid')}
                             onChangeText={(email) => setEmailId(email)}
                             _focus={{ backgroundColor: '#fff' }}
+                            value={emailId}
                         />
                         <Tooltip msg={t('tooltipusernamemsg')} />
                     </HStack>
@@ -115,6 +130,7 @@ const Login = (props) => {
                             onChangeText={(pwd) => setPassword(pwd)}
                             _focus={{ backgroundColor: '#fff' }}
                             maxLength={15}
+                            value={password}
                         />
                         <Tooltip msg={t('tooltippasswordmsg')} />
                     </HStack>
@@ -136,9 +152,6 @@ const Login = (props) => {
                             fontSize: 14,
                             fontWeight: '500'
                         }}
-                        _loading={{
-                            size: 100
-                        }}
                         onPress={() => { onLogin() }}
                     >
                         {t('login')}
@@ -153,7 +166,7 @@ const Login = (props) => {
                     {/* <LanguageModal /> */}
                 </LinearGradient>
             </KeyboardAwareScrollView>
-        </SafeAreaView>
+        </SafeAreaProvider>
     )
 }
 

@@ -10,6 +10,11 @@
     "tooltipusernamemsg": "You must enter a valid email address",
     "tooltippasswordmsg": "Password must contain the following:\n *Password size limitation between 8 - 15 characters.\n *Must contain at least one uppercase letter.\n *Must contain at least one special character (!”#$%&'()*+,-./:;<=>?@[^_{|}~ ).",
     "dashboard": "Dashboard",
-    "logout":"Logout"
+    "logout":"Logout",
+    "norecordfound":"no record found",
+    "confirmation":"Confirmation",
+    "areyousurewanttologout":"Are you sure you want to log out?",
+    "cancel":"Cancel",
+    "ok":"OK"
   }
 }

@@ -8,7 +8,7 @@ import {
 import HomeScreen from '../screens/movieList/movieList';
 import { DrawerActions } from '@react-navigation/native';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { openModal } from '../redux/userLanguages';
 import { useTranslation } from 'react-i18next';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -20,19 +20,17 @@ const MenuNavigators = (prop) => {
   const { t, i18n } = useTranslation();
 
   const logOut = () => {
-  //  prop.navigation.navigate('login')
     prop.navigation.dispatch(StackActions.popToTop());
   }
 
   const logOutConfirmation = () => {
-    Alert.alert('Confirmation', 'Are you sure you want to log out?', [
-
+    Alert.alert(t('confirmation'), t('areyousurewanttologout'), [
       {
-        text: 'Cancel',
+        text: t('cancel'),
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      { text: 'OK', onPress: () => { logOut() } },
+      { text: t('ok'), onPress: () => { logOut() } },
     ]);
   }
 
@@ -84,6 +82,7 @@ const MenuNavigators = (prop) => {
     </Drawer.Navigator>
   );
 };
+
 const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
@@ -96,8 +95,6 @@ const styles = StyleSheet.create({
     color: 'rgba(0, 0, 0, .87)',
   },
   iconContainer: {
-    // marginHorizontal: 16,
-    //width: 24,
     alignItems: 'center',
     marginLeft: 16
   },
@@ -106,10 +103,6 @@ const styles = StyleSheet.create({
     height: 24,
   }
 });
-
-const SignOutConfirmation = () => {
-
-}
 
 
 export default MenuNavigators;
