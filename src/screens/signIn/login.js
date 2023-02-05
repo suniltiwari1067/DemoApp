@@ -1,24 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Text,
     TouchableOpacity,
-    StatusBar,
     Platform
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    loadSignIn,
-    loginSuccess,
-    loginFailure
-} from '../../redux/userDetails';
+import { loginSuccess } from '../../redux/userDetails';
 import { validateEmailId, validatePassword } from '../../helpers/utility'
-import { Stack, Input, Pressable, Button, Popover, Box, IconButton, HStack } from 'native-base';
+import { Input, Pressable, Button, HStack ,Text} from 'native-base';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import Tooltip from '../../components/toolTip'
-import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
-import { LanguageModal } from '../../helpers/languageModal'
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { openModal } from '../../redux/userLanguages';
 import '../../localization/i18n';
 import { useTranslation } from 'react-i18next';
@@ -26,7 +19,6 @@ import { signInStyle } from './styles';
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import FastImages from '../../components/fastImage';
 import { CustomStatusBar } from '../../helpers/statusBar';
-
 
 const Login = (props) => {
     const [emailId, setEmailId] = useState("");
@@ -83,7 +75,7 @@ const Login = (props) => {
                     end={{ x: 0, y: 1 }}
                 >
                     <FastImages
-                        style={signInStyle.imageStyle}
+                        style={signInStyle.logo}
                         imageSource={require('../../assets/images/demoLogo.png')}
                         resizeMode={'contain'}
                     />
@@ -102,6 +94,7 @@ const Login = (props) => {
                             onChangeText={(email) => setEmailId(email)}
                             _focus={{ backgroundColor: '#fff' }}
                             value={emailId}
+                            fontFamily={'FontAwesome'}
                         />
                         <Tooltip msg={t('tooltipusernamemsg')} />
                     </HStack>
@@ -131,6 +124,7 @@ const Login = (props) => {
                             _focus={{ backgroundColor: '#fff' }}
                             maxLength={15}
                             value={password}
+                            fontFamily={'FontAwesome'}
                         />
                         <Tooltip msg={t('tooltippasswordmsg')} />
                     </HStack>
@@ -147,11 +141,7 @@ const Login = (props) => {
                         shadow={2}
                         rounded={10}
                         borderColor={'gray.300'}
-                        _text={{
-                            color: "white",
-                            fontSize: 14,
-                            fontWeight: '500'
-                        }}
+                        _text={signInStyle.loginButton}
                         onPress={() => { onLogin() }}
                     >
                         {t('login')}
@@ -160,10 +150,9 @@ const Login = (props) => {
                         style={signInStyle.dropdown}
                         onPress={() => dispatch(openModal())}
                     >
-                        <Text>{t(currentLanguage)}</Text>
+                        <Text style={signInStyle.languageLabel}>{t(currentLanguage)}</Text>
                         <MaterialIcon name="keyboard-arrow-down" size={20} />
                     </TouchableOpacity>
-                    {/* <LanguageModal /> */}
                 </LinearGradient>
             </KeyboardAwareScrollView>
         </SafeAreaProvider>

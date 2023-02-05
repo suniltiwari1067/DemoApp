@@ -2,37 +2,29 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   username: "",
-  loading: false,
-  error: '',
-  loginStatus: false
+  loginStatus: false,
+  loginTime:new Date().toLocaleString()
 };
 
 export const UserDetailSlice = createSlice({
   name: 'userDetails',
   initialState,
   reducers: {
-    loadSignIn: state => {
-      state.loading = true;
-      state.error = '';
-      loginStatus = false;
-    },
     loginSuccess: (state, action) => {
-      state.loading = false;
       state.username = action.payload.emailid;
-      state.loginStatus = true
+      state.loginStatus = true;
+      loginTime=new Date().toLocaleString()
     },
-    loginFailure: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.error;
-      state.loginStatus = false
+    logOutSuccess: (state) => {
+      state.username = "";
+      state.loginStatus = false;
     },
   },
 });
 
 export const {
-  loadSignIn,
   loginSuccess,
-  loginFailure,
+  logOutSuccess,
 } = UserDetailSlice.actions;
 
 export default UserDetailSlice.reducer;

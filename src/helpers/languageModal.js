@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Modal, StyleSheet, Pressable } from 'react-native';
-import { LANGUAGES } from '../helpers/Constants'
+import { LANGUAGES } from './constants'
 import { Radio } from 'native-base';
 import { useDispatch, useSelector } from 'react-redux';
 import { updatelLanguage } from '../redux/userLanguages';
@@ -25,9 +25,10 @@ export const LanguageModal = (props) => {
             .changeLanguage(lagCode) //update local language
             .then(() => {
                 // props.navigation.push('movielist')
-                console.log("rssuccessss >>>>>>> ", lagCode)
             })
-            .catch(err => console.log("err >>>>>>> ", err));
+            .catch(err => {
+                //console.log("err >>>>>>> ", err)
+            });
     }
 
     return (
@@ -36,7 +37,7 @@ export const LanguageModal = (props) => {
             transparent={true}
             visible={showModal}
             onRequestClose={() => {
-                Alert.alert('Modal has been closed.');
+                //  Alert.alert('Modal has been closed.');
                 //setModalVisible(!modalVisible);
             }}>
             <View style={styles.centeredView}>
@@ -51,7 +52,13 @@ export const LanguageModal = (props) => {
                     >
                         {LANGUAGES && LANGUAGES.map((lang, index) => {
                             return (
-                                <Radio value={lang} my={2} mx={0} key={index}>
+                                <Radio
+                                    value={lang}
+                                    my={2}
+                                    mx={0}
+                                    key={index}
+                                    fontFamily={'FontAwesome'}
+                                >
                                     {t(lang)}
                                 </Radio>
                             )
@@ -95,7 +102,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         padding: 10,
         elevation: 2,
-        marginVertical: 10
+        marginVertical: 10,
+        marginHorizontal:1
     },
     buttonOpen: {
         backgroundColor: '#F194FF',
@@ -105,8 +113,10 @@ const styles = StyleSheet.create({
     },
     textStyle: {
         color: 'white',
-        fontWeight: 'bold',
+        fontWeight: '500',
         textAlign: 'center',
+        fontFamily:'FontAwesome',
+        lineHeight:20
     },
     modalText: {
         marginBottom: 15,

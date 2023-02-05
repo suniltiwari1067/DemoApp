@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from '../screens/signIn/login';
 import MenuNavigators from './menuNavigators'
 import SplashScreen from "react-native-splash-screen";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { AppState } from 'react-native';
 
 const Stack = createStackNavigator();

@@ -13,18 +13,8 @@ i18n.use(initReactI18next).init({
     ar: ar,
   },
   interpolation: {
-    escapeValue: false // react already safes from xss
+    escapeValue: false
   }
 });
-
-
-// export const updateAppLaanguage = async (value) => {
-//   console.log("test >>>",value)
-//   await i18n.changeLanguage(value);
-// }
-
-// export const translate = (text) => {
-//   return i18n.t(text);
-// }
 
 export default i18n;

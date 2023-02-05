@@ -7,20 +7,26 @@ import {
 } from '@react-navigation/drawer';
 import HomeScreen from '../screens/movieList/movieList';
 import { DrawerActions } from '@react-navigation/native';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, TouchableOpacity, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { openModal } from '../redux/userLanguages';
 import { useTranslation } from 'react-i18next';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import { StackActions } from '@react-navigation/native';
+import { Avatar, Text } from 'native-base';
+import { useSelector } from 'react-redux';
+import { styles } from './styles';
+import { logOutSuccess } from '../redux/userDetails'
 
 const Drawer = createDrawerNavigator();
 const MenuNavigators = (prop) => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
+  const { username ,loginTime} = useSelector(state => state.UserDetail);
 
-  const logOut = () => {
-    prop.navigation.dispatch(StackActions.popToTop());
+  const logOutClick = () => {
+    dispatch(logOutSuccess());//reset redux data
+    prop.navigation.dispatch(StackActions.popToTop());//reset stack data
   }
 
   const logOutConfirmation = () => {
@@ -30,14 +36,47 @@ const MenuNavigators = (prop) => {
         onPress: () => console.log('Cancel Pressed'),
         style: 'cancel',
       },
-      { text: t('ok'), onPress: () => { logOut() } },
+      { text: t('ok'), onPress: () => { logOutClick() } },
     ]);
+  }
+
+  const profileView = () => {
+    return (
+      <View style={styles.profile}>
+        <View style={styles.profilePictureContainer}>
+          <Avatar
+            bg="#4a92e1"
+            size={20}
+          >
+            {username.slice(0, 1).toUpperCase()}
+          </Avatar>
+        </View>
+        <View style={styles.profilePictureNameContainer}>
+          <Text style={styles.profileLabel}>{username}</Text>
+          <Text style={styles.profileLabel} numberOfLines={2}>{`${t('lastloginat')} - \n${loginTime}`}</Text>
+        </View>
+      </View>
+    )
+  }
+
+  const logOutView = () => {
+    return (
+      <TouchableOpacity onPress={logOutConfirmation} style={styles.profileLogoutContainer}>
+        <View style={styles.item}>
+          <View style={styles.iconContainer}>
+            <MaterialIcon name="logout" size={20} />
+          </View>
+          <Text style={styles.logoutLabel}>{t('logout')}</Text>
+        </View>
+      </TouchableOpacity>
+    )
   }
 
   const CustomDrawerContent = props => {
     return (
-      <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1, justifyContent: 'space-between' }}>
-        <View style={{ justifyContent: 'flex-start' }}>
+      <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1 }}>
+        {profileView()}
+        <View style={{ justifyContent: 'flex-start', flex: 6 }}>
           <DrawerItemList {...props} />
           <DrawerItem
             label={t('updatelannguage')}
@@ -46,19 +85,15 @@ const MenuNavigators = (prop) => {
               dispatch(openModal())
             }
             }
-            icon={() =>
-              <MaterialIcon name="language" size={20} />
+            icon={({ color, size }) =>
+              <View style={{ marginRight: -20 }}>
+                <MaterialIcon name="language" size={size} />
+              </View>
             }
+            labelStyle={styles.menuLabel}
           />
         </View>
-        <TouchableOpacity onPress={logOutConfirmation}>
-          <View style={styles.item}>
-            <View style={styles.iconContainer}>
-              <MaterialIcon name="logout" size={20} />
-            </View>
-            <Text style={styles.label}>{t('logout')}</Text>
-          </View>
-        </TouchableOpacity>
+        {logOutView()}
       </DrawerContentScrollView>
     );
   };
@@ -68,41 +103,22 @@ const MenuNavigators = (prop) => {
       drawerContent={props => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerShown: true,
-        drawerActiveTintColor: '#4a92e1'
+        drawerActiveTintColor: '#4a92e1',
       }}>
       <Drawer.Screen
         name={t('dashboard')}
         options={{
           drawerIcon: ({ color, size }) => (
-            <MaterialIcon name="home" size={20} />
+            <View style={{ marginRight: -20 }}>
+              <MaterialIcon name="home" size={size} />
+            </View>
           ),
+          drawerLabelStyle: styles.menuLabel
         }}
         component={HomeScreen}
       />
     </Drawer.Navigator>
   );
 };
-
-const styles = StyleSheet.create({
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 30
-  },
-  label: {
-    margin: 14,
-    fontWeight: 'bold',
-    color: 'rgba(0, 0, 0, .87)',
-  },
-  iconContainer: {
-    alignItems: 'center',
-    marginLeft: 16
-  },
-  icon: {
-    width: 24,
-    height: 24,
-  }
-});
-
 
 export default MenuNavigators;

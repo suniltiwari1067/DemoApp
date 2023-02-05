@@ -13,6 +13,7 @@ export const movieStyle = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     textAlign: 'center',
+    fontFamily: 'FontAwesome'
   },
   container: {
     flex: 1
@@ -31,10 +32,12 @@ export const movieStyle = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection:"row"
   },
   recordNotFoudTitle: {
     textTransform: 'capitalize',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize:14
   }
 });

@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import { movieStyle } from './styles';
 import FastImages from '../../components/fastImage';
 import { Center, Text, VStack } from 'native-base';
-import { MOVIE_IMAGE_BASE_URL } from '../../helpers/Constants'
+import { MOVIE_IMAGE_BASE_URL } from '../../helpers/constants'
 
 const PMovieList = ({ item }) => {
     const { title, poster_path, id } = item;
@@ -11,7 +11,6 @@ const PMovieList = ({ item }) => {
         <View
             activeOpacity={0.6}
             style={movieStyle.itemContainer}
-        //  key={id}
         >
             <VStack
                 w={'100%'}
@@ -25,7 +24,6 @@ const PMovieList = ({ item }) => {
                     <FastImages
                         style={movieStyle.movieImage}                      
                         imageSource={{ uri: MOVIE_IMAGE_BASE_URL + poster_path }}
-                        // imageSource={require('../../assets/images/unnamed.jpg')}
                         resizeMode={'contain'}
                     />
                     <Text numberOfLines={2} style={movieStyle.movieName}>

@@ -28,8 +28,19 @@ export const signInStyle = StyleSheet.create({
     container: {
         flex: 1
     },
-    imageStyle: {
+    logo: {
         width: '100%',
         height: 150,
+    },
+    languageLabel:{
+        fontFamily:'FontAwesome',
+        fontSize:14,
+        fontWeight:'500'
+    },
+    loginButton:{
+        color: "#fff",
+        fontSize: 14,
+        fontWeight: 'bold',
+        fontFamily:'FontAwesome'
     }
 })

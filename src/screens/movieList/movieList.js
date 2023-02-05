@@ -10,7 +10,7 @@ import {
 import PMovieList from './pMovieList'
 import { movieStyle } from './styles';
 import { useSelector } from 'react-redux';
-import { MOVIE_LIST_ENDPOINT } from '../../helpers/Constants';
+import { MOVIE_LIST_ENDPOINT } from '../../helpers/constants';
 import { useTranslation } from 'react-i18next';
 
 const MovieList = () => {
@@ -107,7 +107,7 @@ const MovieList = () => {
         setloadMore(true);
     }
 
-    EmptyComponent = () => {
+    emptyRecord = () => {
         return (
             <View style={movieStyle.recordNotFoud}>
                 <Text style={movieStyle.recordNotFoudTitle}>{t('norecordfound')} </Text>
@@ -115,31 +115,44 @@ const MovieList = () => {
         )
     }
 
-
-
+    movieLoading = () => {
+        return (
+            <View style={movieStyle.recordNotFoud}>
+                <ActivityIndicator
+                    color="#2f3363"
+                    style={{ margin: 15 }}
+                    size={30}
+                />
+                <Text style={movieStyle.recordNotFoudTitle}>{t('movieloading')} </Text>
+            </View>
+        )
+    }
 
     return (
         <SafeAreaView style={movieStyle.container}>
             <View style={movieStyle.subContainer}>
                 {
-                    PMovieDataList && PMovieDataList.length > 0 ?
-                        (
-                            <FlatList
-                                style={movieStyle.flatlistContainer}
-                                data={PMovieDataList}
-                                renderItem={({ item }) => (
-                                    <PMovieList
-                                        item={item}
-                                    />
-                                )}
-                                numColumns={2}
-                                onEndReached={onLoadMoreData}
-                                onEndReachedThreshold={0.01}
-                                keyExtractor={item => item.id}
-                                scrollsToTop={true}
-                                ListFooterComponent={renderFooter}
-                            />) :
-                        <EmptyComponent />}
+                    (PMovieDataList && PMovieDataList.length <= 0 && loading) ?
+                        movieLoading() :
+                        (PMovieDataList && PMovieDataList.length > 0) ?
+                            (
+                                <FlatList
+                                    style={movieStyle.flatlistContainer}
+                                    data={PMovieDataList}
+                                    renderItem={({ item }) => (
+                                        <PMovieList
+                                            item={item}
+                                        />
+                                    )}
+                                    numColumns={2}
+                                    onEndReached={onLoadMoreData}
+                                    onEndReachedThreshold={0.01}
+                                    keyExtractor={item => item.id}
+                                    scrollsToTop={true}
+                                    ListFooterComponent={renderFooter}
+                                />
+                            ) :
+                            emptyRecord()}
             </View>
         </SafeAreaView>
     );
