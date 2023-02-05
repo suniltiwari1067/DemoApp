@@ -52,7 +52,7 @@ const MenuNavigators = (prop) => {
           </Avatar>
         </View>
         <View style={styles.profilePictureNameContainer}>
-          <Text style={styles.profileLabel}>{username}</Text>
+          <Text style={styles.profileLabel} numberOfLines={2}>{username}</Text>
           <Text style={styles.profileLabel} numberOfLines={2}>{`${t('lastloginat')} - \n${loginTime}`}</Text>
         </View>
       </View>

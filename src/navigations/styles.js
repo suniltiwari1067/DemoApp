@@ -42,14 +42,15 @@ export const styles = StyleSheet.create({
         textAlign: 'left',
         fontWeight: '500',
         fontFamily: 'FontAwesome',
-        paddingVertical:5
+        paddingVertical:5,
     },
     profilePictureContainer: {
         width: '30%'
     },
     profilePictureNameContainer: {
         width: '70%',
-        padding: 10
+        //padding: 10,
+        paddingHorizontal:10
     },
     profileLogoutContainer: {
         width: '100%'
